@@ -3,6 +3,7 @@
 const productSection = document.getElementById('app');
 const navElement = document.getElementById('navigation')
 const basketIcon = document.getElementById('basketIcon')
+const loadingScreen = document.getElementById('loading-screen')
 
 
 
@@ -13,6 +14,10 @@ let myProducts = null
 
 // page load
 InitApp()
+
+// window.addEventListener('load', (event)=>{
+
+// })
 
 
 
@@ -31,6 +36,7 @@ function GetProductData() {
         .then((json) => {
             //console.log(json);
             ProductsRecived(json)
+
         });
 }
 
@@ -50,7 +56,10 @@ function GetProductsByCategory(myCategoryURL) {
 
 
             recivedProductsByCategory(json)
+
         });
+
+
 
 }
 
@@ -87,12 +96,14 @@ function ReadLocalStorageData() {
 }
 
 
-/* controller code------------------------------------------------------------- */
+/* Controller code------------------------------------------------------------- */
 
 
 
 function InitApp() {
 
+    //TODO: Call creation of loading screen function
+    CreateLoadingScreen()
     InitializeBasket()
     GetProductData()
     GetCategoryData()
@@ -132,7 +143,7 @@ function recivedProductsByCategory(productsByC) {
     let myProductArray = productsByC.products
 
     CreateProductView(myProductArray)
-
+    HideLoadingScreen()
 }
 
 
@@ -231,6 +242,7 @@ function CategoryRecived(CategoryData) {
 
 
     CreateNavBar(myNavigationData)
+    HideLoadingScreen()
 }
 
 //----------------------------------------------------------------------
@@ -247,6 +259,8 @@ function ProductsRecived(productData) {
 
     CreateProductView(myFeaturedProducts)
     // CreateProductView(myProducts)
+    HideLoadingScreen()
+
 }
 
 //----------------------------------------------------------------------
@@ -255,6 +269,10 @@ function NavCallback(CategoryName) {
     //console.log(CategoryName);
     CloseMobileNav()
     // get data from API  bug API url og send videre
+
+    //TODO: Call creation of loading screen function
+    CreateLoadingScreen()
+
     if (CategoryName == "All") {
         CreateProductView(myProducts)
     }
@@ -263,6 +281,7 @@ function NavCallback(CategoryName) {
 
         GetProductsByCategory(myCategoryURL)
     }
+
 
 
 
@@ -293,7 +312,6 @@ function ProductCallback(myId) {
         //console.log(myClickedProduct)
         clearApp();
         buildProduct(myClickedProduct)
-
     }
 
 }
@@ -301,7 +319,10 @@ function ProductCallback(myId) {
 //----------------------------------------------------------------------
 
 function LogoCallback() {
+    //TODO: Call creation of loading screen function
+    CreateLoadingScreen()
     GetProductData()
+
 }
 
 //----------------------------------------------------------------------
@@ -426,7 +447,7 @@ function BasketClear() {
     BasketIconCallback()
 }
 
-// helper functions
+// Helper functions
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 
@@ -449,7 +470,7 @@ function ToggleMenu() {
 }
 
 
-/* view code------------------------------------------------------------- */
+/* View code------------------------------------------------------------- */
 
 function ShowMobileNav() {
 
@@ -547,7 +568,6 @@ function CreateNavBar(Categorydata) {
         navHTML += `<div class="navCategories"><h3>${superCatData.superCategoryname}</h3>
         ${mySubCats}
         </div>`
-
     });
 
     navHTML += '</section>'
@@ -560,14 +580,13 @@ function CreateNavBar(Categorydata) {
 function CreateProductView(myCards) {
     //console.log(myCards);
     clearApp()
-
     let myHTML = '<section id="featuredProducts">'
 
     myCards.forEach(product => {
         // console.log(product);
 
         myHTML += `<figure><h2>${product.title}</h2><img onclick="ProductCallback(${product.id})" src="${product.thumbnail}"><h3>PRIS: ${product.price} rabat: ${product.discountPercentage}</h3>
-         <button onclick="AddToBasket(${product.id})" >add to basket</button>
+         <button onclick="AddToBasket(${product.id})" >Add to basket</button>
         </figure>`
 
     })
@@ -575,6 +594,7 @@ function CreateProductView(myCards) {
     myHTML += '</section>'
 
     productSection.innerHTML = myHTML
+    HideLoadingScreen()
 }
 
 
@@ -591,8 +611,6 @@ function buildProduct(product) {
     <button onclick="AddToBasket(${product.id})" >add to basket</button>
     </figure></section>
     `
-
-
     productSection.innerHTML = myHTML
 }
 
@@ -603,5 +621,14 @@ function clearApp() {
 
 }
 
+function CreateLoadingScreen() {
+
+    loadingScreen.style.display = 'block';
+
+}
+
+function HideLoadingScreen() {
+    loadingScreen.style.display = 'none';
+}
 
 
