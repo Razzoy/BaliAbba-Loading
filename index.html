@@ -11,12 +11,15 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <link rel="stylesheet" href="assets/css/clear.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <script src="assets/js/app.js" defer></script>
 </head>
 
 <body>
+    
+
     <header>
         <img class="logo" onclick="LogoCallback()" src="assets/img/logo.svg">
         <h1>BALIABBA</h1>
@@ -52,7 +55,8 @@
     </header>
 
     <section id="loading-screen">
-        <div class="loading-spinner"></div>
+        <dotlottie-player src="assets/lottie/FingerLoad.json" background="transparent" speed="1" style="width: 500px; height: 500px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+        <!-- <div class="loading-spinner"></div> -->
         
     </section>
 

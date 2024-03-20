@@ -1,6 +1,6 @@
 
 // globals
-const productSection = document.getElementById('app');
+const productSection = document.getElementById('app')
 const navElement = document.getElementById('navigation')
 const basketIcon = document.getElementById('basketIcon')
 const loadingScreen = document.getElementById('loading-screen')
@@ -624,12 +624,16 @@ function clearApp() {
 
 function CreateLoadingScreen() {
     loadingScreen.style.display = 'block';
+    productSection.style.display = 'none';
+    navElement.style.display = 'none';
     myFooter.style.display = 'none';
     console.log('Im Loading');
 }
 
 function HideLoadingScreen() {
     loadingScreen.style.display = 'none';
+    productSection.style.display = 'block';
+    navElement.style.display = 'block';
     myFooter.style.display = 'block';
     console.log('Done loading');
 }
