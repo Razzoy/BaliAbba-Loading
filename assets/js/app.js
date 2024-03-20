@@ -622,7 +622,6 @@ function clearApp() {
 }
 
 function CreateLoadingScreen() {
-
     loadingScreen.style.display = 'block';
 
 }
