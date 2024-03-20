@@ -4,6 +4,7 @@ const productSection = document.getElementById('app');
 const navElement = document.getElementById('navigation')
 const basketIcon = document.getElementById('basketIcon')
 const loadingScreen = document.getElementById('loading-screen')
+const myFooter = document.getElementById('footer')
 
 
 
@@ -623,11 +624,14 @@ function clearApp() {
 
 function CreateLoadingScreen() {
     loadingScreen.style.display = 'block';
-
+    myFooter.style.display = 'none';
+    console.log('Im Loading');
 }
 
 function HideLoadingScreen() {
     loadingScreen.style.display = 'none';
+    myFooter.style.display = 'block';
+    console.log('Done loading');
 }
 
 
